@@ -34,10 +34,7 @@ class NotificationManager():
                 localTime = datetime.datetime.now()
 
             if localTime.hour < 8 or localTime.hour > 22:
-                print("In Manager, no disturbing time")
-                return
-            if localTime.minute > 30:
-                print("In Manager, no disturbing time")
+                print(f"In Manager: it is {localTime}, which is between 22:00 and 08:00. Not sending notification because of do not disturb.")
                 return
 
         for notificationHandle in self.__handleList:
