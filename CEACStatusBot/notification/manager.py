@@ -17,7 +17,10 @@ class NotificationManager():
     def send(self,) -> None:
         res = query_status(self.__location, self.__number, self.__passport_number, self.__surname, self.__captchaHandle)
 
-        if res['status'] == "Refused":
+        if 'status' not in res:
+            print(f'Response does not contain status. Available fields: {list(response.keys())}')
+            return
+        elif res['status'] == "Refused":
             import os,pytz,datetime
             try:
                 TIMEZONE = os.environ["TIMEZONE"]
@@ -31,10 +34,7 @@ class NotificationManager():
                 localTime = datetime.datetime.now()
 
             if localTime.hour < 8 or localTime.hour > 22:
-                print("In Manager, no disturbing time")
-                return
-            if localTime.minute > 30:
-                print("In Manager, no disturbing time")
+                print(f"In Manager: it is {localTime}, which is between 22:00 and 08:00. Not sending notification because of do not disturb.")
                 return
 
         for notificationHandle in self.__handleList:
