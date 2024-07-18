@@ -18,7 +18,7 @@ class NotificationManager():
         res = query_status(self.__location, self.__number, self.__passport_number, self.__surname, self.__captchaHandle)
 
         if 'status' not in res:
-            print(f'Response does not contain status. Available fields: {list(response.keys())}')
+            print(f'Response does not contain status. Available fields: {list(res.keys())}')
             return
         elif res['status'] == "Refused":
             import os,pytz,datetime
